@@ -34,16 +34,15 @@ class Registro extends Component{
     
     }).then((response) => response.json())
       .then((responseJson) => {
-        console.log(responseJson.stringify());
         // If server response message same as Data Matched
       if(responseJson == 'El usuario ha sido creado')
         {
-
+          console.log("hola");
             //Then open Profile activity and send user email to profile activity.
             navigation.navigate("Login");
         }
         else{
-         
+          console.log("hola");
           console.log("Eror en la creacion");
         }
 
@@ -60,9 +59,13 @@ class Registro extends Component{
       }}>
         <View style={{flex: 3 }}></View>
         <View style={{flex: 1 }}>
+      <Text>Email</Text>
       <InputLogin onChange= {this.onChangeEmail} id = {"email"} secure = {false}></InputLogin>
+      <Text>Usuario</Text>
       <InputLogin onChange= {this.onChangeUser} id = {"user"} secure = {false}></InputLogin>
+      <Text>Contraseña</Text>
       <InputLogin onChange = {this.onChangePassword} id = {"password"} secure = {true}></InputLogin>
+      <Text>Confirm Contraseña</Text>
       <InputLogin  id = {"confirmpass"} secure = {true}></InputLogin>
       <Button 
       onPress = {()=>this.registrar(this.props.navigation)}

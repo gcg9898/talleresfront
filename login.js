@@ -10,11 +10,41 @@ class Login extends Component{
     error: null,
     sending: false,
   };
-  onChangeEmail = user => this.setState({user});
+  onChangeUser = user => this.setState({user});
   onChangePassword = password => this.setState({password});
   iniciarSesion = async (navigation) => {
     this.setState({sending: true});
-    navigation.navigate("Ofertas");
+    fetch('http://192.168.1.53/login.php', {
+      method: 'POST',
+      headers: {
+        
+      },
+      body: JSON.stringify({
+    
+        nombre:this.state.user,
+        pass:this.state.password
+    
+      })
+    
+    }).then((response) => response.json())
+      .then((responseJson) => {
+        // If server response message same as Data Matched
+      if(responseJson == 'Login')
+        {
+          console.log("hola");
+            //Then open Profile activity and send user email to profile activity.
+            navigation.navigate("Ofertas");
+        }
+        else{
+        
+          console.log("Eror en login");
+        }
+
+      }).catch((error) => {
+        console.log("hola");
+        console.error(error);
+      });
+    
   }
   registrar = async (navigation) => {
     navigation.navigate("Registro");
@@ -31,7 +61,7 @@ class Login extends Component{
       }}>
         <View style={{flex: 3 }}></View>
         <View style={{flex: 1 }}>
-      <InputLogin onChange= {this.onChangeEmail} id = {"name"} secure = {false}></InputLogin>
+      <InputLogin onChange= {this.onChangeUser} id = {"name"} secure = {false}></InputLogin>
       <InputLogin onChange = {this.onChangePassword} id = {"pass"} secure = {true}></InputLogin>
       <Button 
       onPress = {()=>this.iniciarSesion(this.props.navigation)}
@@ -45,6 +75,7 @@ class Login extends Component{
       color = "blue"  
       >
       </Button>
+      <Text>{this.state.user  +this.state.password }</Text>
       </View>
         <View style={{flex: 3 }}></View>
       </View>
