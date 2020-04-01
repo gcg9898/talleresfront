@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button} from 'react-native';
+import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
 import {Component} from 'react';
-import InputLogin from './InputLogin';
+import InputRegistro from './InpuntRegistro';
 
 class Login extends Component{
   state = {
@@ -54,31 +54,40 @@ class Login extends Component{
   
     return(
       <View style={{
+        flexDirection: 'row',
+        justifyContent:'center'
+      }}>
+      <View style={{
         flexDirection: 'column',
         justifyContent:'center',
-
-      
       }}>
-        <View style={{flex: 3 }}></View>
-        <View style={{flex: 1 }}>
-      <InputLogin onChange= {this.onChangeUser} id = {"name"} secure = {false}></InputLogin>
-      <InputLogin onChange = {this.onChangePassword} id = {"pass"} secure = {true}></InputLogin>
+        
+        <View style={{margin:15}}>
+        <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:43}} />
+      </View>
+      <View style={{padding:5}}>
+      <Text>Usuario</Text>
+      <InputRegistro onChange= {this.onChangeUser} placeholder={"Usuario"} id = {"user"} secure = {false}></InputRegistro>
+      </View>
+       <View style={{padding:5}}>
+       <Text>Contraseña</Text>
+       <InputRegistro onChange= {this.onChangePassword} placeholder={"Usuario"} id = {"pass"} secure = {true}></InputRegistro>
+       </View>
       <Button 
+      style={{margin:10,borderRadius:50}}
       onPress = {()=>this.iniciarSesion(this.props.navigation)}
       title =  "Iniciar Sesion"
-      color = "blue"  
-      >
+      color = "red"  >
       </Button>
-      <Button 
-      onPress = {()=>this.registrar(this.props.navigation)}
-      title =  "Registrarse"
-      color = "blue"  
-      >
-      </Button>
+      <TouchableOpacity 
+      style={{margin:10}}
+      onPress = {()=>this.registrar(this.props.navigation)}>
+        <Text>Registro</Text>
+      </TouchableOpacity>
       <Text>{this.state.user  +this.state.password }</Text>
       </View>
-        <View style={{flex: 3 }}></View>
       </View>
+     
     );
   }
 }

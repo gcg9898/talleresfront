@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 2751,
-  "expoServerNgrokUrl": "https://ir-d26.anonymous.talleresfront.exp.direct",
-  "packagerNgrokUrl": "https://packager.ir-d26.anonymous.talleresfront.exp.direct",
-  "ngrokPid": 2859,
-  "webpackServerPort": 19006
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+  "webpackServerPort": null
 }

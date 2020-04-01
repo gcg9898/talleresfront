@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button} from 'react-native';
+import { StyleSheet, Text, View ,Button,Image} from 'react-native';
 import {Component} from 'react';
-import InputLogin from './InputLogin';
+
+import InputRegistro from './InpuntRegistro';
 
 
 class Registro extends Component{
@@ -9,6 +10,7 @@ class Registro extends Component{
     email: "",
     user: "",
     password: "",
+    placeholder:"",
     error: null,
     sending: false,
   };
@@ -28,7 +30,8 @@ class Registro extends Component{
     
         email: this.state.email,
         user:this.state.user,
-        password:this.state.password
+        password:this.state.password,
+        placeholder:this.state.placeholder
     
       })
     
@@ -54,28 +57,42 @@ class Registro extends Component{
   render(){
     return(
       <View style={{
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent:'center'
       }}>
-        <View style={{flex: 3 }}></View>
-        <View style={{flex: 1 }}>
+      <View style={{
+        flexDirection: 'column',
+        justifyContent:'center',
+      }}>
+        <View style={{margin:15}}>
+        <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:43}} />
+      </View>
+      <View style={{padding:5}}>
       <Text>Email</Text>
-      <InputLogin onChange= {this.onChangeEmail} id = {"email"} secure = {false}></InputLogin>
+      <InputRegistro onChange= {this.onChangeEmail} placeholder={"Email"} id = {"email"} secure = {false}></InputRegistro>
+      </View>
+      <View style={{padding:5}}>
       <Text>Usuario</Text>
-      <InputLogin onChange= {this.onChangeUser} id = {"user"} secure = {false}></InputLogin>
+      <InputRegistro onChange= {this.onChangeUser} placeholder={"Usuario"} id = {"user"} secure = {false}></InputRegistro>
+      </View>
+      <View style={{padding:5}}>
       <Text>Contraseña</Text>
-      <InputLogin onChange = {this.onChangePassword} id = {"password"} secure = {true}></InputLogin>
-      <Text>Confirm Contraseña</Text>
-      <InputLogin  id = {"confirmpass"} secure = {true}></InputLogin>
+      <InputRegistro onChange = {this.onChangePassword} placeholder={"Contraseña"} id = {"password"} secure = {true}></InputRegistro>
+      </View>
+      <View style={{padding:5}}>
+      <Text>Confirmar Contraseña</Text>
+      <InputRegistro  placeholder={"Confirmar Contraseña"} id = {"confirmpass"} secure = {true}></InputRegistro>
+      </View>
+      <View style={{margin:5}}>
       <Button 
       onPress = {()=>this.registrar(this.props.navigation)}
       title =  "Registrarse"
-      color = "blue"  
+      color = "red"  
       >
       </Button>
-      <Text>{this.state.user + this.state.email +this.state.password }</Text>
       </View>
-        <View style={{flex: 3 }}></View>
+      </View>
+      <Text>{this.state.user + this.state.email +this.state.password }</Text>
       </View>
     );
   }
