@@ -14,34 +14,26 @@ class Login extends Component{
   onChangePassword = password => this.setState({password});
   iniciarSesion = async (navigation) => {
     this.setState({sending: true});
-    fetch('http://192.168.1.53/login.php', {
+    fetch('http://192.168.0.160/backtalleres-master/login.php', {
       method: 'POST',
-      headers: {
-        
-      },
+      headers: {},
       body: JSON.stringify({
-    
         nombre:this.state.user,
         pass:this.state.password
-    
       })
-    
     }).then((response) => response.json())
       .then((responseJson) => {
         // If server response message same as Data Matched
-      if(responseJson == 'Login')
+      if(responseJson[0] == 'Login')
         {
-          console.log("hola");
-            //Then open Profile activity and send user email to profile activity.
-            navigation.navigate("Ofertas");
+          navigation.navigate("Index", {userKey:responseJson[1],coches:responseJson[2]});
         }
-        else{
-        
+        else
+        {
           console.log("Eror en login");
         }
 
       }).catch((error) => {
-        console.log("hola");
         console.error(error);
       });
     
@@ -84,7 +76,6 @@ class Login extends Component{
       onPress = {()=>this.registrar(this.props.navigation)}>
         <Text>Registro</Text>
       </TouchableOpacity>
-      <Text>{this.state.user  +this.state.password }</Text>
       </View>
       </View>
      

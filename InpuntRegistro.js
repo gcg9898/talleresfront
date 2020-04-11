@@ -24,7 +24,7 @@ class InputRegistro extends Component {
     render(){
     return (
       <View style={{
-        flexDirection: 'colum',
+        flexDirection: 'column',
         justifyContent:'center'
         
       }}>

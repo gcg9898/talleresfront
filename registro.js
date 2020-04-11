@@ -21,7 +21,7 @@ class Registro extends Component{
   registrar = async (navigation) => {
     this.setState({sending: true});
     
-    fetch('http://192.168.1.53/registro.php', {
+    fetch('http://192.168.0.160/backtalleres-master/registro.php', {
       method: 'POST',
       headers: {
         
@@ -40,17 +40,14 @@ class Registro extends Component{
         // If server response message same as Data Matched
       if(responseJson == 'El usuario ha sido creado')
         {
-          console.log("hola");
             //Then open Profile activity and send user email to profile activity.
             navigation.navigate("Login");
         }
         else{
-          console.log("hola");
           console.log("Eror en la creacion");
         }
 
       }).catch((error) => {
-        console.log("hola");
         console.error(error);
       });
   }
@@ -92,7 +89,6 @@ class Registro extends Component{
       </Button>
       </View>
       </View>
-      <Text>{this.state.user + this.state.email +this.state.password }</Text>
       </View>
     );
   }

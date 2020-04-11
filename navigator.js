@@ -1,5 +1,5 @@
 import Login from './login';
-import Ofertas from './ofertas';
+import Index from './index';
 import Registro from './registro';
 import { createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer } from 'react-navigation';
@@ -8,7 +8,7 @@ import {createAppContainer } from 'react-navigation';
 const Navegador1 = createStackNavigator(
     {
       Login: { screen: Login },
-      Ofertas: { screen: Ofertas },
+      Index: { screen: Index },
       Registro: {screen: Registro}
     },
     {
