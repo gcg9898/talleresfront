@@ -35,8 +35,7 @@ class Login extends Component{
 
       }).catch((error) => {
         console.error(error);
-      });
-    
+      }); 
   }
   registrar = async (navigation) => {
     navigation.navigate("Registro");
