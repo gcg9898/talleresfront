@@ -22,7 +22,7 @@ class Index extends React.Component
         sending: false,
     };
 
-    setKMS = k => this.setState({kms:k});
+    setKMS = k => this.setState({kms_totales:k});
     setLitros = l => this.setState({litros:l});
     setEuros = e => this.setState({euros:e});
     setMediaLK = lk => this.setState({mediaLK:lk});
@@ -43,10 +43,10 @@ class Index extends React.Component
         }).then((response) => response.json())
             .then((responseJson) => {
             // If server response message same as Data Matched
-            if(responseJson[0] == 'El coche existe')
+            if(responseJson[0] == "El coche existe")
             {        
                 var coche = responseJson[1];
-                this.setKMS(coche.kms_totales);
+                this.setKMS(coche.kilometros_totales);
                 this.setLitros(coche.litros);
                 this.setEuros(coche.euros);
                 this.setMediaLK(coche.mediaLK);
@@ -81,7 +81,7 @@ class Index extends React.Component
         if(responseJson[0] == 'Correcto')
         {
             var coche = responseJson[1];
-            this.setKMS(coche.kms_totales);
+            this.setKMS(coche.kilometros_totales);
             this.setLitros(coche.litros);
             this.setEuros(coche.euros);
             this.setMediaLK(coche.mediaLK);

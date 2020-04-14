@@ -26,7 +26,7 @@ class Index extends React.Component
   onChangeTipo = tipo => this.setState({tipo:tipo});
 
 
-  registrarCoche = async (navigation) => {
+  registrarCoche = async () => {
     this.setState({sending: true});
     
     fetch('http://192.168.0.160/backtalleres-master/registroCoche.php', {
@@ -64,43 +64,28 @@ class Index extends React.Component
     this.setState({sending: true});
     navigation.navigate("VistaCoche", {indice:this.state.click, userKey:this.state.userKey});
   }
-  /*
-  postCoche = async (navigation) => {
-    this.setState({sending: true});
-    fetch('http://192.168.0.160/backtalleres-master/cogerEspecificacionesCoches.php', {
-      method: 'POST',
-      headers: {},
-      body: JSON.stringify({
-        userKey: this.state.userKey,
-        indice: this.state.click
-      })
-    
-    }).then((response) => response.json())
-      .then((responseJson) => {
-        // If server response message same as Data Matched
-      if(responseJson[0] == 'El coche existe')
-          {
-              console.log(responseJson[1]);
-              navigation.navigate("VistaCoche", {coche:responseJson[1]});
-          }
-        else{
-          console.log("El coche no existe");
-        }
-      }).catch((error) => {
-        console.error(error);
-      });
-  }
-*/
 
 
 
   render() {
-      const carros = this.state.coches.map(coche => {
-          return <Text key = {coche.indice} onPress={() => {
-            this.mostrarCoche(coche);
-          }
-          }>{coche.nombre}</Text>
-      })
+
+      const coches = () =>
+      { 
+        if (this.state.coches != "No hay coches que mostrar")
+        {
+          const carros = this.state.coches.map(coche => {
+            return <Text key = {coche.indice} onPress={() => {
+              this.mostrarCoche(coche);
+            }
+            }>{coche.nombre}</Text>
+        })
+        return carros;
+        }
+        else
+        {
+          return  <Text>Ningun coche que mostrar</Text>
+        }
+      }
       return (
           <View>
               <View style={{
@@ -111,8 +96,8 @@ class Index extends React.Component
                   flexDirection: 'column',
                   justifyContent:'center',
               }}>
-
-              {carros}
+              
+              {coches()}
 
               <View style={{padding:5}}>
               <Text>Nombre</Text>
