@@ -46,7 +46,7 @@ class Login extends Component{
     return(
       <View style={{
         flexDirection: 'row',
-        justifyContent:'center'
+        justifyContent:'center',
       }}>
       <View style={{
         flexDirection: 'column',

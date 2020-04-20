@@ -3,7 +3,7 @@ import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from '
 import {Component} from 'react';
 import InputRegistro from './InpuntRegistro';
 
-class Index extends React.Component 
+class VistaCoche extends React.Component 
 {
    
     state = {
@@ -32,7 +32,6 @@ class Index extends React.Component
     constructor(props)
     {
         super(props);
-    
         fetch('http://192.168.0.160/backtalleres-master/cogerEspecificacionesCoches.php', {
             method: 'POST',
             headers: {},
@@ -56,74 +55,58 @@ class Index extends React.Component
             else
             {
                 console.log("No existe el coche");
+                console.log(this.state.userKey,this.state.indice);
             }
             }).catch((error) => {
             console.error(error);
             });
-    } 
     
-
-    actualizarCoche = async () => {
-    this.setState({sending: true});
-    fetch('http://192.168.0.160/backtalleres-master/altaEspecificacionesCoche.php', {
-        method: 'POST',
-        headers: {},
-        body: JSON.stringify({
-        user_key: this.state.userKey,
-        indice: this.state.indice,
-        litros: this.state.litrosNuevos,
-        kilometros_totales: this.state.kmsNuevos,
-        euros: this.state.eurosNuevos
-        })
-    }).then((response) => response.json())
-        .then((responseJson) => {
-        // If server response m]);essage same as Data Matched
-        if(responseJson[0] == 'Correcto')
-        {
-            var coche = responseJson[1];
-            this.setKMS(coche.kilometros_totales);
-            this.setLitros(coche.litros);
-            this.setEuros(coche.euros);
-            this.setMediaLK(coche.mediaLK);
-            this.setMediaEL(coche.mediaEL);
-            this.setMediaEK(coche.mediaEK);
-        }
-        else
-        {
-            console.log("Eror en login");
-        }
-        }).catch((error) => {
-        console.error(error);
-        });
     }
 
     onChangeKMS = kms => this.setState({kmsNuevos: kms});
     onChangeLitros = litros => this.setState({litrosNuevos: litros});
     onChangeEuros = euros => this.setState({eurosNuevos: euros});
 
+    datosCoche = async (navigation) => {
+        navigation.navigate("DatosCoche",{indice:this.state.indice, userKey:this.state.userKey});
+      }
 
     render(){       
         return (
-            <View>
-                <Text>User Key: {this.state.userKey}</Text>
-                <Text>Indice: {this.state.indice}</Text>
-                <Text>KMS: {this.state.kms_totales}</Text>
-                <Text>Litros: {this.state.litros}</Text>
-                <Text>Euros: {this.state.euros}</Text>
+            <View style={{
+                flexDirection: 'row',
+                justifyContent:'center'
+            }}>
+            <View style={{
+                flexDirection: 'column',
+                justifyContent:'center',
+            }}>
+                <View style={{margin:15}}>
+                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:40}} />
+              </View>
+              <View style={{flexDirection:'row'}}>
+                <View style={{borderColor:"#fff",borderWidth:2,padding:3,margin:5}}>
+                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Kilómetros</Text><Text style={{color:"#8BA9ED"}}>{this.state.kms_totales}</Text></View>
+                </View>
+                <View style={{borderColor:"#fff",borderWidth:2,padding:3,margin:5}}>
+                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Litros Repostados</Text><Text style={{color:"#8BA9ED"}}>{this.state.litros}</Text></View>
+                </View>
+                <View style={{borderColor:"#fff",borderWidth:2,padding:3,margin:5}}>
+                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Euros</Text><Text style={{color:"#8BA9ED"}}>{this.state.euros}</Text></View>
+                </View>
+                </View>
+                <Button 
+              onPress = {()=>this.datosCoche(this.props.navigation)}
+              title =  "Actualizar"
+              color = "red" 
+              >
+              </Button>
                 <Text>Media euro/litro: {this.state.mediaEL}</Text>
                 <Text>Media litros/100kms: {this.state.mediaLK}</Text>
                 <Text>Media euros/kilometro: {this.state.mediaEK}</Text>
-                <InputRegistro onChange= {this.onChangeKMS} placeholder={"Kms"} id = {"kms"} secure = {false}></InputRegistro>
-                <InputRegistro onChange= {this.onChangeLitros} placeholder={"Litros"} id = {"litros"} secure = {false}></InputRegistro>
-                <InputRegistro onChange= {this.onChangeEuros} placeholder={"Euros"} id = {"euros"} secure = {false}></InputRegistro>
-                <Button 
-                    style={{margin:10,borderRadius:50}}
-                    onPress = {()=>this.actualizarCoche()}
-                    title =  "Actualizar"
-                    color = "red"  >
-                </Button>
+                </View>
             </View>
         );
     }
 };
-export default Index;
+export default VistaCoche;
