@@ -20,6 +20,9 @@ class VistaCoche extends React.Component
         mediaEK: "",
         error: null,
         sending: false,
+        flagKMS:true,
+        flagLitros:true,
+        flagEuros:true,
     };
 
     setKMS = k => this.setState({kms_totales:k});
@@ -32,7 +35,7 @@ class VistaCoche extends React.Component
     constructor(props)
     {
         super(props);
-        fetch('http://192.168.0.160/backtalleres-master/cogerEspecificacionesCoches.php', {
+        fetch('https://tallercoche.es/backtalleres-master/cogerEspecificacionesCoches.php', {
             method: 'POST',
             headers: {},
             body: JSON.stringify({
@@ -68,7 +71,7 @@ class VistaCoche extends React.Component
     onChangeEuros = euros => this.setState({eurosNuevos: euros});
 
     datosCoche = async (navigation) => {
-        navigation.navigate("DatosCoche",{indice:this.state.indice, userKey:this.state.userKey});
+        navigation.navigate("DatosCoche",{indice:this.state.indice, userKey:this.state.userKey,flagKMS:this.state.flagKMS,flagLitros:this.state.flagLitros,flagEuros:this.state.flagEuros});
       }
 
     render(){       
@@ -82,16 +85,16 @@ class VistaCoche extends React.Component
                 justifyContent:'center',
             }}>
                 <View style={{margin:15}}>
-                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:40}} />
+                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:58}} />
               </View>
               <View style={{flexDirection:'row'}}>
-                <View style={{borderColor:"#fff",borderWidth:2,padding:3,margin:5}}>
+                <View style={{borderColor:"#000",borderWidth:2,padding:3,margin:5}}>
                 <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Kilómetros</Text><Text style={{color:"#8BA9ED"}}>{this.state.kms_totales}</Text></View>
                 </View>
-                <View style={{borderColor:"#fff",borderWidth:2,padding:3,margin:5}}>
-                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Litros Repostados</Text><Text style={{color:"#8BA9ED"}}>{this.state.litros}</Text></View>
+                <View style={{borderColor:"#000",borderWidth:2,padding:3,margin:5}}>
+                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Litros Repostados</Text><Text style={{color:"#000"}}>{this.state.litros}</Text></View>
                 </View>
-                <View style={{borderColor:"#fff",borderWidth:2,padding:3,margin:5}}>
+                <View style={{borderColor:"#000",borderWidth:2,padding:3,margin:5}}>
                 <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Euros</Text><Text style={{color:"#8BA9ED"}}>{this.state.euros}</Text></View>
                 </View>
                 </View>
@@ -101,9 +104,14 @@ class VistaCoche extends React.Component
               color = "red" 
               >
               </Button>
-                <Text>Media euro/litro: {this.state.mediaEL}</Text>
+              <View style={{padding:5,borderColor:"#000",borderWidth:2,margin:5}}>
+              <View style={{padding:5,borderColor:"#000",borderWidth:2}}>
+                <Text style={{textAlign:'center'}}>Último Registro</Text>
+              </View>
+              <Text>Media euro/litro: {this.state.mediaEL}</Text>
                 <Text>Media litros/100kms: {this.state.mediaLK}</Text>
                 <Text>Media euros/kilometro: {this.state.mediaEK}</Text>
+              </View>
                 </View>
             </View>
         );

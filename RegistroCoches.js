@@ -16,6 +16,9 @@ class RegistroCoches extends React.Component
       error: null,
       sending: false,
       click: null,
+      flagNombre:this.props.navigation.state.params.flagNombre,
+      flagMarca:this.props.navigation.state.params.flagMarca,
+      flagTipo:this.props.navigation.state.params.flagTipo,
     };
 
   setCoches = c => this.setState({coches:c});
@@ -31,7 +34,7 @@ class RegistroCoches extends React.Component
     this.setState({sending: true});
     if(this.state.nombre.length >0&&this.state.marca.length>0&&this.state.tipo.length>0&&this.state.userKey.length>0){
 
-        fetch('http://192.168.0.160/backtalleres-master/registroCoche.php', {
+        fetch('https://tallercoche.es/backtalleres-master/registroCoche.php', {
           method: 'POST',
           headers: {},
           body: JSON.stringify({
@@ -45,10 +48,13 @@ class RegistroCoches extends React.Component
             // If server response message same as Data Matched
             console.log(responseJson);
           if(responseJson[0] == 'El coche ha sido creado')
-              {         
+              {        
+                this.setState({flagNombre:true}); 
+                this.setState({flagMarca:true});
+                this.setState({flagTipo:true});
                   this.setCoches(responseJson[1]);
                   console.log(this.state.coches);
-                  navigation.push("Index",{coches:this.state.coches,userKey:this.state.userKey});
+                  navigation.push("Index",{coches:this.state.coches,userKey:this.state.userKey,flagNombre:this.state.flagNombre,flagMarca:this.state.flagMarca,flagTipo:this.state.flagTipo});
               }
             else{
               console.log("Eror en la creacion");
@@ -57,11 +63,27 @@ class RegistroCoches extends React.Component
             console.error(error);
           });
     }else{
-      <Text>ggg</Text>
+      if(this.state.nombre.length==0){
+        this.setState({flagNombre:false});
+      }else
+        this.setState({flagNombre:true});
+
+      if(this.state.marca.length==0){
+        this.setState({flagMarca:false});
+      }else
+       this.setState({flagMarca:true});
+
+      if(this.state.tipo.length==0){
+        this.setState({flagTipo:false});
+      }else
+        this.setState({flagTipo:true});
     }
   }
 
   render() { 
+    const flagNombre=this.state.flagNombre;
+    const flagTipo=this.state.flagTipo;
+    const flagMarca=this.state.flagMarca;
       return (
           <View>
               <View style={{
@@ -78,20 +100,20 @@ class RegistroCoches extends React.Component
               </View>
               <View style={{padding:5}}>
               <Text>Nombre Vehiculo</Text>
-              <InputRegistro onChange= {this.onChangeNombre} placeholder={"Nombre"} id = {"nombre"} secure = {false}></InputRegistro>
+              <InputRegistro onChange= {this.onChangeNombre} flag={flagNombre} placeholder={"Nombre"} id = {"nombre"} secure = {false}></InputRegistro>
               </View>
               <View style={{padding:5}}>
               <Text>Marca</Text>
-              <InputRegistro onChange= {this.onChangeMarca} placeholder={"Marca"} id = {"marca"} secure = {false}></InputRegistro>
+              <InputRegistro onChange= {this.onChangeMarca} flag={flagMarca} placeholder={"Marca"} id = {"marca"} secure = {false}></InputRegistro>
               </View>
               <View style={{padding:5}}>
               <Text>Tipo</Text>
-              <InputRegistro onChange = {this.onChangeTipo} placeholder={"Tipo"} id = {"tipo"} secure = {false}></InputRegistro>
+              <InputRegistro onChange = {this.onChangeTipo} flag={flagTipo} placeholder={"Tipo"} id = {"tipo"} secure = {false}></InputRegistro>
               </View>
               <View style={{margin:5}}>
               <Button 
               onPress = {()=>this.registrarCoche(this.props.navigation)}
-              title =  "RegistrarCoche"
+              title =  "Registrar Coche"
               color = "red" 
               >
               </Button>

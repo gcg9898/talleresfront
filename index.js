@@ -20,6 +20,9 @@ class Index extends React.Component
       error: null,
       sending: false,
       click: null,
+      flagNombre:true,
+      flagMarca:true,
+      flagTipo:true,
     };
 
   
@@ -35,7 +38,10 @@ class Index extends React.Component
 
 
   index = async (navigation) => {
-    navigation.navigate("RegistroCoches",{userKey:this.state.userKey,coches:this.state.coches});
+    this.setState({flagNombre: true});
+    this.setState({flagMarca: true});
+    this.setState({flagTipo: true});
+    navigation.navigate("RegistroCoches",{userKey:this.state.userKey,coches:this.state.coches,flagNombre:this.state.flagNombre,flagMarca:this.state.flagMarca,flagTipo:this.state.flagTipo});
   }
 
   mostrarCoche = async (coche)=>{
@@ -107,7 +113,7 @@ class Index extends React.Component
                   <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:75}} />
               </View>
               <View style={{margin:5}}>
-              <h2 style={{color:"#272D40"}}>Coches Registrados</h2>
+              <h2 style={{color:"#272D40",textAlign:'center'}}>Coches Registrados</h2>
               </View>
               <View style={{margin:5}}>
               {coches()}

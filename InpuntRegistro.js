@@ -22,24 +22,26 @@ class InputRegistro extends Component {
         this.placeholder=props.placeholder;
     }
     render(){
-    return (
-      <View style={{
-        flexDirection: 'column',
-        justifyContent:'center'
-        
-      }}>
-        
-       
-   <TextInput
-   placeholder={this.placeholder}
-    id = {this.id}
-     secureTextEntry = {this.secure}
-     onChangeText = {this.onChange}
-     style={{ borderColor: 'gray', borderWidth: 2,borderRadius:5,padding:3,margin:3}}>
-     </TextInput>
-       
-      </View>
-    );
+      let {flag}=this.props;
+          return (
+            <View style={{
+              flexDirection: 'column',
+              justifyContent:'center'
+              
+            }}>
+              
+            
+        <TextInput
+        placeholder={this.placeholder}
+          id = {this.id}
+          placeholderTextColor={flag?'grey':'red'}
+          secureTextEntry = {this.secure}
+          onChangeText = {this.onChange}
+          style={{ borderColor: flag?'grey':'red', borderWidth: 2,borderRadius:5,padding:3,margin:3}}>
+          </TextInput>
+            <Text style={{opacity:flag?0:100,color:'red'}}>{this.placeholder} incorrecto</Text>
+            </View>
+          );
   }
 }
   export default InputRegistro;

@@ -9,17 +9,25 @@ class Login extends Component{
     password: "",
     error: null,
     sending: false,
+    flagUser:true,
+    flagPassword:true
   };
+
+  componentDidMount(){
+    this.setState({flagPassword:true});
+  }
   onChangeUser = user => this.setState({user});
   onChangePassword = password => this.setState({password});
   iniciarSesion = async (navigation) => {
     this.setState({sending: true});
-    fetch('http://192.168.0.160/backtalleres-master/login.php', {
+    fetch('https://tallercoche.es/backtalleres-master/login.php', {
       method: 'POST',
       headers: {},
       body: JSON.stringify({
         nombre:this.state.user,
-        pass:this.state.password
+        pass:this.state.password,
+        flagUser:this.state.flagUser,
+        flagPassword:this.state.flagPassword,
       })
     }).then((response) => response.json())
       .then((responseJson) => {
@@ -30,6 +38,13 @@ class Login extends Component{
         }
         else
         {
+          if(this.state.user.length==0){
+            this.setState({flagUser:false});
+          }
+          if(this.state.password.length==0){
+            this.setState({flagPassword:false});
+          }
+
           console.log("Eror en login");
         }
 
@@ -38,11 +53,14 @@ class Login extends Component{
       }); 
   }
   registrar = async (navigation) => {
+    this.setState({flagUser:true});
+    this.setState({flagPassword:true});
     navigation.navigate("Registro");
   }
   render(){
- 
-  
+    const flagUser=this.state.flagUser;
+    const flagPassword=this.state.flagPassword;
+
     return(
       <View style={{
         flexDirection: 'row',
@@ -58,11 +76,11 @@ class Login extends Component{
       </View>
       <View style={{padding:5}}>
       <Text>Usuario</Text>
-      <InputRegistro onChange= {this.onChangeUser} placeholder={"Usuario"} id = {"user"} secure = {false}></InputRegistro>
+      <InputRegistro onChange= {this.onChangeUser} flag={flagUser} placeholder={"Usuario"} id = {"user"} secure = {false}></InputRegistro>
       </View>
        <View style={{padding:5}}>
        <Text>Contraseña</Text>
-       <InputRegistro onChange= {this.onChangePassword} placeholder={"Usuario"} id = {"pass"} secure = {true}></InputRegistro>
+       <InputRegistro onChange= {this.onChangePassword} flag={flagPassword} placeholder={"Contraseña"} id = {"pass"} secure = {true}></InputRegistro>
        </View>
       <Button 
       style={{margin:10,borderRadius:50}}
