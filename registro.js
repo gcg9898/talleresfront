@@ -75,7 +75,7 @@ class Registro extends Component{
         this.setState({flagEmail:true});
     }
 
-      
+      // comeme la piziza
   }
   render(){
     
