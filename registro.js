@@ -10,34 +10,32 @@ class Registro extends Component{
     email: "",
     user: "",
     password: "",
+    confirmPassword: "",
     placeholder:"",
     error: null,
     sending: false,
     flagUser:true,
     flagPassword:true,
+    flagConfirmPwd:true,
     flagEmail:true
   };
   onChangeEmail = e => this.setState({email:e});
   onChangeUser = u => this.setState({user:u});
   onChangePassword = p => this.setState({password:p});
+  onChangeConfirmPwd = c => this.setState({confirmPassword:c});
   
   registrar = async (navigation) => {
     this.setState({sending: true});
-    if(this.state.user.length>0&&this.state.password.length>0&&this.state.email.length>0){
+
+    if(this.state.user.length > 0 && this.state.password.length > 0 && this.state.email.length > 0 && (this.state.confirmPassword === this.state.password)){
     fetch('https://tallercoche.es/backtalleres-master/registro.php', {
       method: 'POST',
-      headers: {
-        
-      },
+      headers: {},
       body: JSON.stringify({
     
         email: this.state.email,
         user:this.state.user,
-        password:this.state.password,
-        placeholder:this.state.placeholder,
-        flagUser:this.state.flagUser,
-    flagPassword:this.state.flagPassword,
-    flagEmail:this.state.flagEmail
+        password:this.state.password
       })
     
     }).then((response) => response.json())
@@ -49,34 +47,43 @@ class Registro extends Component{
         }
         else
         {
-          console.log("Eror en la creacion");
+          console.log("Error en la creacion");
         }
 
       }).catch((error) => {
         console.error(error);
       });
     }else{
-      if(this.state.user.length==0){
+      if(this.state.user.length == 0){
         this.setState({flagUser:false});
       }else
         this.setState({flagUser:true});
 
-      if(this.state.password.length==0){
+      if(this.state.password.length == 0){
         this.setState({flagPassword:false});
       }else
        this.setState({flagPassword:true});
 
-      if(this.state.email.length==0){
+      if((this.state.confirmPassword.length == 0) || (this.state.password != this.state.confirmPassword)){
+        this.setState({flagConfirmPwd:false});
+      }else
+       this.setState({flagConfirmPwd:true});
+
+      if(this.state.email.length == 0){
         this.setState({flagEmail:false});
       }else
         this.setState({flagEmail:true});
     }
+
       
   }
   render(){
+    
     const flagUser=this.state.flagUser;
     const flagPassword=this.state.flagPassword;
     const flagEmail=this.state.flagEmail;
+    const flagConfirmPwd=this.state.flagConfirmPwd;
+
     return(
       <View style={{
         flexDirection: 'row',
@@ -103,7 +110,7 @@ class Registro extends Component{
       </View>
       <View style={{padding:5}}>
       <Text>Confirmar Contraseña</Text>
-      <InputRegistro  flag={flagPassword} placeholder={"Confirmar Contraseña"} id = {"confirmpass"} secure = {true}></InputRegistro>
+      <InputRegistro  onChange = {this.onChangeConfirmPwd} flag={flagConfirmPwd} placeholder={"Confirmar Contraseña"} id = {"confirmpass"} secure = {true}></InputRegistro>
       </View>
       <View style={{margin:5}}>
       <Button 

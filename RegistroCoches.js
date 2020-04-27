@@ -46,7 +46,7 @@ class RegistroCoches extends React.Component
         }).then((response) => response.json())
           .then((responseJson) => {
             // If server response message same as Data Matched
-            console.log(responseJson);
+            
           if(responseJson[0] == 'El coche ha sido creado')
               {        
                 this.setState({flagNombre:true}); 
