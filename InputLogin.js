@@ -1,16 +1,5 @@
 import React,{Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  TextInput,
-  Image,
-} from 'react-native';
-
-
+import {View,Text,TextInput,Image} from 'react-native';
 
 class InputLogin extends Component {
     constructor(props){

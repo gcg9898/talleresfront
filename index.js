@@ -1,16 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
+import {Text, View ,Button,Image} from 'react-native';
 import {Table, TableCell, TableHead, TableBody, TableRow} from "@material-ui/core";
-import {Component} from 'react';
-import InputRegistro from './InpuntRegistro';
-import { red } from 'color-name';
-import { Icon } from 'react-native-elements';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 class Index extends React.Component 
 {
-   
   state = {
       userKey:this.props.navigation.state.params.userKey,
       coches:this.props.navigation.state.params.coches,
@@ -53,6 +48,29 @@ class Index extends React.Component
     navigation.navigate("VistaCoche", {indice:this.state.click, userKey:this.state.userKey});
   }
 
+  borrarCoche = async (coche) => {
+    fetch('https://tallercoche.es/backtalleres-master/borrarCoche.php', {
+        method: 'POST',
+        headers: {},
+        body: JSON.stringify({
+        user_key: this.state.userKey,
+        indice: coche.indice
+        })
+    }).then((response) => response.json())
+        .then((responseJson) => {
+        // If server response m]);essage same as Data Matched
+        if(responseJson[0] == 'El coche ha sido borrado')
+        {
+          this.setState({coches: responseJson[1]});
+        }
+        else
+        {
+          console.log("Error borrando el coche");
+        }
+        }).catch((error) => {
+        console.error(error);
+        });
+ }
   
 
   render() { 
@@ -60,7 +78,7 @@ class Index extends React.Component
       { 
         if (this.state.coches != "No hay coches que mostrar")
         {
-          const carros = this.state.coches.map(coche => {
+          var carros = this.state.coches.map(coche => {
             return (
               <TableRow key={coche.indice}>
                 <TableCell align="center">{coche.nombre}</TableCell>
@@ -70,9 +88,8 @@ class Index extends React.Component
                 <ArrowForwardIosIcon
                     onClick={() => {
                       this.mostrarCoche(coche)}} /> 
-            
                 </TableCell>
-                <TableCell align="center"><DeleteIcon style={{color:'red'}} /></TableCell>
+                <TableCell align="center"><DeleteIcon style={{color:'red'}} onClick={() => {this.borrarCoche(coche)}} /></TableCell>
               </TableRow>
               )
         })
@@ -124,7 +141,6 @@ class Index extends React.Component
               color = "red" 
                 onPress = {()=>this.index(this.props.navigation)}></Button>
                 </View>
-
               </View>
               </View>
           </View>

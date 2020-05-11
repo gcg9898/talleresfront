@@ -1,9 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image} from 'react-native';
+import {Text, View ,Button,Image} from 'react-native';
 import {Component} from 'react';
-
 import InputRegistro from './InpuntRegistro';
-
 
 class Registro extends Component{
   state = {
@@ -19,6 +17,7 @@ class Registro extends Component{
     flagConfirmPwd:true,
     flagEmail:true
   };
+
   onChangeEmail = e => this.setState({email:e});
   onChangeUser = u => this.setState({user:u});
   onChangePassword = p => this.setState({password:p});
@@ -74,10 +73,8 @@ class Registro extends Component{
       }else
         this.setState({flagEmail:true});
     }
-
   }
-  render(){
-    
+  render(){  
     const flagUser=this.state.flagUser;
     const flagPassword=this.state.flagPassword;
     const flagEmail=this.state.flagEmail;

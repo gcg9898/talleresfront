@@ -1,6 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
-import {Component} from 'react';
+import {Text, View ,Button,Image} from 'react-native';
 import InputRegistro from './InpuntRegistro';
 
 class DatosCoche extends React.Component 
@@ -38,11 +37,7 @@ class DatosCoche extends React.Component
 
     actualizarEspecificacionesCoche = async (navigation) => {
     this.setState({sending: true});
-    console.log("kms "+this.state.kms_totales.length);
-    console.log("litros "+this.state.litros.length);
-    console.log("euros "+this.state.euros.length);
     if(this.state.kmsNuevos.length >0&&this.state.litrosNuevos.length>0&&this.state.eurosNuevos.length>0&&this.state.userKey.length>0){
-        console.log("hola");
         fetch('https://tallercoche.es/backtalleres-master/altaEspecificacionesCoche.php', {
             method: 'POST',
             headers: {},

@@ -4,7 +4,7 @@ import Registro from './registro';
 import VistaCoche from './VistaCoche';
 import RegistroCoches from './RegistroCoches'
 import DatosCoche from './DatosCoche'
-import { createStackNavigator} from 'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer } from 'react-navigation';
 
 
@@ -17,11 +17,7 @@ const Navegador1 = createStackNavigator(
       VistaCoche: {screen: VistaCoche},
       DatosCoche:{screen:DatosCoche}
     },
-    {
-        initialRouteName: 'Login',
-    }
-    
+    {initialRouteName: 'Login'}
     );
     const Navegador = createAppContainer(Navegador1);
-
     export default Navegador;

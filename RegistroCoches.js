@@ -1,12 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
-import {Component} from 'react';
+import {Text, View ,Button,Image} from 'react-native';
 import InputRegistro from './InpuntRegistro';
-import { red } from 'color-name';
 
 class RegistroCoches extends React.Component 
 {
-   
   state = {
       userKey:this.props.navigation.state.params.userKey,
       coches:this.props.navigation.state.params.coches,

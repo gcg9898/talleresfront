@@ -1,11 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
-import {Component} from 'react';
-import InputRegistro from './InpuntRegistro';
+import {Text, View ,Button,Image} from 'react-native';
 
 class VistaCoche extends React.Component 
 {
-   
     state = {
         userKey:this.props.navigation.state.params.userKey,
         indice:this.props.navigation.state.params.indice,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
+import {Text, View ,Button,Image,FormLabel,TouchableOpacity} from 'react-native';
 import {Component} from 'react';
 import InputRegistro from './InpuntRegistro';
 
@@ -95,7 +95,6 @@ class Login extends Component{
       </TouchableOpacity>
       </View>
       </View>
-     
     );
   }
 }
