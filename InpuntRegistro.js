@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {View,Text,TextInput} from 'react-native';
-
+//hola
 class InputRegistro extends Component {
     constructor(props){
       super(props);
