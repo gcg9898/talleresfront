@@ -18,6 +18,7 @@ class Index extends React.Component
       flagNombre:true,
       flagMarca:true,
       flagTipo:true,
+      flag:false,
     };
 
   
@@ -26,6 +27,7 @@ class Index extends React.Component
   setUserKey = d => this.setState({user_key:d});
   setClick = e => this.setState({click:e});
 
+  onChangeFlag = flag => this.setState({flag:flag});
   onChangeNombre = nombre => this.setState({nombre:nombre});
   onChangeMarca = marca => this.setState({marca:marca});
   onChangeTipo = tipo => this.setState({tipo:tipo});
@@ -48,13 +50,15 @@ class Index extends React.Component
     navigation.navigate("VistaCoche", {indice:this.state.click, userKey:this.state.userKey});
   }
 
+  
+
   borrarCoche = async (coche) => {
     fetch('https://tallercoche.es/backtalleres-master/borrarCoche.php', {
         method: 'POST',
         headers: {},
         body: JSON.stringify({
         user_key: this.state.userKey,
-        indice: coche.indice
+        indice: coche.indice,
         })
     }).then((response) => response.json())
         .then((responseJson) => {
@@ -71,13 +75,32 @@ class Index extends React.Component
         console.error(error);
         });
  }
+
+
+ hayCoche = async () => {
+      if (this.state.coches != "No hay coches que mostrar")
+      {
+        //console.log("dentro");
+        this.setState({flag:true});
+      }
+      else
+      {
+        //console.log("fuera");
+        this.setState({flag:false});
+      }
+     
+}
   
 
   render() { 
+    let flag=this.state.flag;
+    this.hayCoche();
       const coches = () =>
       { 
         if (this.state.coches != "No hay coches que mostrar")
         {
+          //this.tieneCoches();
+         // this.setState({flag:true});
           var carros = this.state.coches.map(coche => {
             return (
               <TableRow key={coche.indice}>
@@ -93,7 +116,6 @@ class Index extends React.Component
               </TableRow>
               )
         })
-      
         return (
           <Table>
             <TableHead>
@@ -112,9 +134,12 @@ class Index extends React.Component
         }
         else
         {
+          //this.setState({flag:false});
+          //this.noTieneCoches();
           return  <Text>Ningun coche que mostrar</Text>
         }
       }
+      console.log("flag "+flag);
       return (
           <View>
               <View style={{
@@ -125,9 +150,8 @@ class Index extends React.Component
                   flexDirection: 'column',
                   justifyContent:'center',
               }}>
-
             <View style={{margin:15}}>
-                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:75}} />
+                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:flag?75:51}} />
               </View>
               <View style={{margin:5}}>
               <h2 style={{color:"#272D40",textAlign:'center'}}>Coches Registrados</h2>

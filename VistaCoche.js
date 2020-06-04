@@ -1,6 +1,45 @@
 import React from 'react';
-import {Text, View ,Button,Image} from 'react-native';
-
+import {Text, View ,Button,Image,StyleSheet} from 'react-native';
+//import styles from "./style.css";
+const styles = StyleSheet.create({
+    
+    tituloContador: {
+        fontSize: '1.3em',
+        fontWeight: 500,
+        color: "#3d3d3d",
+        textAlign: 'center',
+        lineHeight: '1.3em',
+    },
+    
+    datoContador: {
+        fontSize:'1.6em',
+        fontWeight: 600,
+        textAlign: 'center',
+        color: '#8e0007',
+    },
+    
+    tituloRegistro: {
+        letterSpacing:1,
+        lineHeight: '1.2em',
+        fontSize: '1.4em',
+        fontWeight: 600,
+        textTransform: 'uppercase',
+        borderBottom: 1,
+        textAlign: 'center',
+        borderColor:'#3d3d3d',
+    },
+    
+    dataRegistro: {
+        fontSize: '1.2em',
+        lineHeight: '1.4em',
+    
+    },
+    valueRegistro: {
+        fontSize: '1.3em',
+        fontWeight: 600,
+        color: '#D01C25',
+    }
+  });
 class VistaCoche extends React.Component 
 {
     state = {
@@ -28,6 +67,8 @@ class VistaCoche extends React.Component
     setMediaLK = lk => this.setState({mediaLK:lk});
     setMediaEL = el => this.setState({mediaEL:el});
     setMediaEK = ek => this.setState({mediaEK:ek});
+
+    
 
     constructor(props)
     {
@@ -63,6 +104,8 @@ class VistaCoche extends React.Component
     
     }
 
+
+   
     onChangeKMS = kms => this.setState({kmsNuevos: kms});
     onChangeLitros = litros => this.setState({litrosNuevos: litros});
     onChangeEuros = euros => this.setState({eurosNuevos: euros});
@@ -81,18 +124,19 @@ class VistaCoche extends React.Component
                 flexDirection: 'column',
                 justifyContent:'center',
             }}>
+                
                 <View style={{margin:15}}>
-                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:58}} />
+                  <Image source={require('./src/tallercoche-logotipo.png')} style={{width: "100%",height:77}} />
               </View>
               <View style={{flexDirection:'row'}}>
                 <View style={{borderColor:"#000",borderWidth:2,padding:3,margin:5}}>
-                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Kilómetros</Text><Text style={{color:"#8BA9ED"}}>{this.state.kms_totales}</Text></View>
+                <View style={{flexDirection:'column'}}><Text style={styles.tituloContador}>Kilómetros</Text><Text style={styles.datoContador}>{this.state.kms_totales}</Text></View>
                 </View>
                 <View style={{borderColor:"#000",borderWidth:2,padding:3,margin:5}}>
-                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Litros Repostados</Text><Text style={{color:"#000"}}>{this.state.litros}</Text></View>
+                <View style={{flexDirection:'column'}}><Text style={styles.tituloContador}>Litros Repostados</Text><Text style={styles.datoContador}>{this.state.litros}</Text></View>
                 </View>
                 <View style={{borderColor:"#000",borderWidth:2,padding:3,margin:5}}>
-                <View style={{flexDirection:'column'}}><Text style={{marginHorizontal:5}}>Euros</Text><Text style={{color:"#8BA9ED"}}>{this.state.euros}</Text></View>
+                <View style={{flexDirection:'column'}}><Text style={styles.tituloContador}>Euros</Text><Text style={styles.datoContador}>{this.state.euros}</Text></View>
                 </View>
                 </View>
                 <Button 
@@ -102,12 +146,12 @@ class VistaCoche extends React.Component
               >
               </Button>
               <View style={{padding:5,borderColor:"#000",borderWidth:2,margin:5}}>
-              <View style={{padding:5,borderColor:"#000",borderWidth:2}}>
-                <Text style={{textAlign:'center'}}>Último Registro</Text>
+              <View style={{padding:5,borderColor:"#3d3d3d",borderBottom:2}}>
+                <Text style={styles.tituloRegistro}>Último Registro</Text>
               </View>
-              <Text>Media euro/litro: {this.state.mediaEL}</Text>
-                <Text>Media litros/100kms: {this.state.mediaLK}</Text>
-                <Text>Media euros/kilometro: {this.state.mediaEK}</Text>
+              <View style={{flexDirection:'row'}}><Text style={styles.dataRegistro}>Media euro/litro:</Text><Text style={styles.valueRegistro}> {this.state.mediaEL}</Text></View>
+              <View style={{flexDirection:'row'}}><Text style={styles.dataRegistro}>Media litros/100kms:</Text><Text style={styles.valueRegistro}> {this.state.mediaLK}</Text></View>
+              <View style={{flexDirection:'row'}}><Text style={styles.dataRegistro}>Media euros/kilometro:</Text><Text style={styles.valueRegistro}> {this.state.mediaEK}</Text></View>
               </View>
                 </View>
             </View>
